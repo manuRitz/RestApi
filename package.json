@@ -1,0 +1,17 @@
+{
+  "name": "RestAPI",
+  "description": "",
+  "engines": {
+    "node": "5.9.1"
+  },
+  "main": "server.js",
+  "dependencies": {
+    "mongoose": "~4",
+    "restify": "*",
+    "cli-table": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/manuRitz/RestApi.git"
+  }
+}
