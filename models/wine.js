@@ -7,7 +7,7 @@ var wineSchema = new Schema({
     type: {type: String, required: true, enum: ['red', 'white', 'rose']},
     country: {type: String, required: true},
     description: {type: String, required: false}
-});
+}, {versionKey: false});
 
 //validate year
 wineSchema.path('year').validate(function (v) {

@@ -59,8 +59,8 @@ function wineController() {
 
 
                 var errMessage = {
-                    'error': 'VALIDATION_ERROR',
-                    'validation': {}
+                    error: 'VALIDATION_ERROR',
+                    validation: {}
                 };
 
                 for (var errName in err.errors) {
@@ -101,8 +101,8 @@ function wineController() {
                 }
 
                 var errMessage = {
-                    'error': 'VALIDATION_ERROR',
-                    'validation': {}
+                    error: 'VALIDATION_ERROR',
+                    validation: {}
                 };
 
                 for (var errName in err.errors) {
@@ -132,10 +132,10 @@ function wineController() {
     this.deleteWine = function (req, res, next) {
         mongoose.model('wines').findOne({'_id': req.params.id}, function (err, data) {
             if (err) {
-                res.send(400, {'error': 'UNKNOWN_OBJECT'});
+                res.send(400, {error: 'UNKNOWN_OBJECT'});
             } else {
                 data.remove();
-                res.send({'success:': true});
+                res.send({success: true});
             }
         })
     };
