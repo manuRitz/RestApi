@@ -14,7 +14,7 @@ frisby.create('Post a Wine')
         year: String,
         country: String,
         type: String,
-        _id: String
+        id: Number
     })
     .expectJSON({
         name: 'test wine',
@@ -22,7 +22,7 @@ frisby.create('Post a Wine')
         country: 'France',
         type: 'red'
     })
-    .afterJSON(function(json) {
+    .afterJSON(function (json) {
         frisby.create('get wines by name')
             .get(url + '/wines?name=' + json.name)
             .expectStatus(200)
@@ -32,14 +32,14 @@ frisby.create('Post a Wine')
                 year: String,
                 country: String,
                 type: String,
-                _id: String
+                id: Number
             })
             .expectJSON('?', {
                 name: 'test wine',
                 year: '2011',
                 country: 'France',
                 type: 'red',
-                _id: json._id
+                id: json.id
             })
             .toss()
 
@@ -52,14 +52,14 @@ frisby.create('Post a Wine')
                 year: String,
                 country: String,
                 type: String,
-                _id: String
+                id: Number
             })
             .expectJSON('?', {
                 name: 'test wine',
                 year: '2011',
                 country: 'France',
                 type: 'red',
-                _id: json._id
+                id: json.id
             })
             .toss();
 
@@ -72,14 +72,14 @@ frisby.create('Post a Wine')
                 year: String,
                 country: String,
                 type: String,
-                _id: String
+                id: Number
             })
             .expectJSON('?', {
                 name: 'test wine',
                 year: '2011',
                 country: 'France',
                 type: 'red',
-                _id: json._id
+                id: json.id
             })
             .toss();
 
@@ -92,19 +92,19 @@ frisby.create('Post a Wine')
                 year: String,
                 country: String,
                 type: String,
-                _id: String
+                id: Number
             })
             .expectJSON('?', {
                 name: 'test wine',
                 year: '2011',
                 country: 'France',
                 type: 'red',
-                _id: json._id
+                id: json.id
             })
             .toss();
 
         frisby.create('get wine by id')
-            .get(url + '/wines/' + json._id)
+            .get(url + '/wines/' + json.id)
             .expectStatus(200)
             .expectHeader('Content-Type', 'application/json')
             .expectJSONTypes('', {
@@ -112,19 +112,19 @@ frisby.create('Post a Wine')
                 year: String,
                 country: String,
                 type: String,
-                _id: String
+                id: Number
             })
             .expectJSON({
                 name: 'test wine',
                 year: '2011',
                 country: 'France',
                 type: 'red',
-                _id: json._id
+                id: json._id
             })
             .toss()
 
         frisby.create('put wine by id')
-            .put(url + '/wines/' + json._id, {
+            .put(url + '/wines/' + json.id, {
                 type: 'white'
             })
             .expectStatus(200)
@@ -134,18 +134,18 @@ frisby.create('Post a Wine')
                 year: String,
                 country: String,
                 type: String,
-                _id: String
+                id: Number
             })
             .expectJSON({
                 name: 'test wine',
                 year: '2011',
                 country: 'France',
                 type: 'white',
-                _id: json._id
+                id: json.id
             })
-            .afterJSON(function(json) {
+            .afterJSON(function (json) {
                 frisby.create('delete wine by id')
-                    .delete(url + '/wines/' + json._id)
+                    .delete(url + '/wines/' + json.id)
                     .expectStatus(200)
                     .expectHeader('Content-Type', 'application/json')
                     .expectJSONTypes('', {

@@ -10,7 +10,8 @@
     "restify": "*",
     "cli-table": "*",
     "frisby": "latest",
-    "jasmine-node": "latest"
+    "jasmine-node": "latest",
+    "mongoose-auto-increment": "latest"
   },
   "repository": {
     "type": "git",

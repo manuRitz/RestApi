@@ -10,26 +10,16 @@ function wineController() {
 
     //get all wines
     this.getWine = function (req, res) {
-        var params = req.params;
-        var year = params.year;
-        var name = params.name;
-        var type = params.type;
-        var country = params.country;
-
-        if (year) {
-            mongoose.model('wines').find({'year': year}, function (err, wine) {
-                res.send(wine);
-            })
-        } else if (name) {
-            mongoose.model('wines').find({'name': name}, function (err, wine) {
-                res.send(wine);
-            })
-        } else if (type) {
-            mongoose.model('wines').find({'type': type}, function (err, wine) {
-                res.send(wine);
-            })
-        } else if (country) {
-            mongoose.model('wines').find({'country': country}, function (err, wine) {
+        //search parameters available
+        if (req.params) {
+            //validate search parameters
+            var params = req.params;
+            for (var param in req.params) {
+                if (param !== 'year' && param !== 'name' && param !== 'type' && param !== 'country') {
+                    delete params[param];
+                }
+            }
+            mongoose.model('wines').find(params, function (err, wine) {
                 res.send(wine);
             })
         } else {
@@ -41,7 +31,7 @@ function wineController() {
     //gat a wine by id
     this.getWineById = function (req, res) {
         mongoose.model('wines').findOne({'_id': req.params.id}, function (err, wine) {
-            if (err) {
+            if (wine === null || err) {
                 res.send(400, {'error': 'UNKNOWN_OBJECT'});
             } else {
                 res.send(wine);
@@ -53,11 +43,8 @@ function wineController() {
     this.postWine = function (req, res, next) {
         var newWine = new Wine(req.params);
 
-        newWine.save(function (err, data) {
+        newWine.save(function (err, wine) {
             if (err) {
-                console.log(err);
-
-
                 var errMessage = {
                     error: 'VALIDATION_ERROR',
                     validation: {}
@@ -76,27 +63,18 @@ function wineController() {
                             break;
                     }
                 }
-
-                if (err.name === 'CastError') {
-                    errMessage.validation[err.path] = 'INVALID';
-                }
-
-
                 res.send(400, errMessage);
             } else {
-                res.send(data);
+                res.send(wine);
             }
         });
     };
 
     //update a wine by id and validate params
     this.putWine = function (req, res) {
-        mongoose.model('wines').findOneAndUpdate({'_id': req.params.id}, {$set: req.params}, {runValidators: true}, function (err, data) {
-            if (err) {
-                console.log(err);
-
-
-                if (err.name === 'CastError') {
+        mongoose.model('wines').findOneAndUpdate({'_id': req.params.id}, {$set: req.params}, {runValidators: true}, function (err, wine) {
+            if (wine === null || err) {
+                if (wine === null || err.name === 'CastError') {
                     res.send(400, {'error': 'UNKNOWN_OBJECT'});
                 }
 
@@ -118,7 +96,6 @@ function wineController() {
                             break;
                     }
                 }
-
                 res.send(400, errMessage);
             } else {
                 Wine.findOne({'_id': req.params.id}, function (err, data) {
@@ -130,17 +107,16 @@ function wineController() {
 
     //delete a wine by id
     this.deleteWine = function (req, res, next) {
-        mongoose.model('wines').findOne({'_id': req.params.id}, function (err, data) {
-            if (err) {
+        mongoose.model('wines').findOne({'_id': req.params.id}, function (err, wine) {
+            if (wine === null || err) {
                 res.send(400, {error: 'UNKNOWN_OBJECT'});
             } else {
-                data.remove();
+                wine.remove();
                 res.send({success: true});
             }
         })
     };
     return this;
-
 };
 
 module.exports = new wineController();
