@@ -1,20 +1,1 @@
-{
-  "name": "RestAPI",
-  "description": "",
-  "engines": {
-    "node": "5.9.1"
-  },
-  "main": "server.js",
-  "dependencies": {
-    "mongoose": "~4",
-    "restify": "*",
-    "cli-table": "*",
-    "frisby": "latest",
-    "jasmine-node": "latest",
-    "mongoose-auto-increment": "latest"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/manuRitz/RestApi.git"
-  }
-}
+﻿{  "name": "RestAPI",  "description": "",  "engines": {    "node": "5.9.1"  },  "main": "server.js",  "dependencies": {    "mongoose": "~4",    "restify": "*",    "cli-table": "*",    "frisby": "latest",    "jasmine-node": "latest",    "mongoose-auto-increment": "latest"  },  "repository": {    "type": "git",    "url": "https://github.com/manuRitz/RestApi.git"  }}
