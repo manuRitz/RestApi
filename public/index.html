@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html ng-app>
+<head>
+    <title>RESTful API for managing wines</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+    <script src="info.js"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+</head>
+
+<body>
+<div class="col-md-3">
+    <table class="table" ng-controller="info">
+        <thead>
+        <tr>
+            <th>Tpye</th>
+            <th>Name</th>
+            <th>Path</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="info in infos">
+            <td>{{info.type}}</td>
+            <td>{{info.name}}</td>
+            <td>{{info.path}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
